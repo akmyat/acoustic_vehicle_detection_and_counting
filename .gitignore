@@ -1,0 +1,14 @@
+# Ignore .gz files
+*.gz
+
+# Ignore .pth files
+*.pth
+
+# Ignore .wav files
+*.wav
+
+# Ignore IDE files
+.vscode
+
+# Ignore Pickle files
+*.pickle

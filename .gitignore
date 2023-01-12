@@ -12,3 +12,8 @@
 
 # Ignore Pickle files
 *.pickle
+
+# Ignore following folders
+/learning/vehicle_counting/datasets
+/learning/vehicle_counting/VC-PRG-1_5
+/learning/vehicle_counting/VC-PRG-6

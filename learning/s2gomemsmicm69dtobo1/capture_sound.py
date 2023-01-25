@@ -95,7 +95,7 @@ def record_samples():
     # sd.default.channels = 2
 
     # Start the stereo recording.
-    rec = sd.rec(int(rec_duration * samplerate), samplerate=samplerate, channels=2, device=device)
+    rec = sd.rec(int(rec_duration * samplerate), samplerate=samplerate, channels=2, device=1)
     return rec
     
 if __name__ == "__main__":

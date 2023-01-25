@@ -93,6 +93,12 @@ def record_samples():
     return rec
     
 if __name__ == "__main__":
-    rec = record_samples()
-    processed = process_audio_data(rec)
-    print(processed.shape)
+    
+    count = 0
+    while True:
+        rec = record_samples()
+        processed = process_audio_data(rec)
+        print(processed.shape)
+        count += 1
+        if count == 3:
+            break

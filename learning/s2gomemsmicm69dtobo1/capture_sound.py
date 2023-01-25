@@ -90,9 +90,12 @@ def process_audio_data(audiodata):
 def record_samples():
     global sample_duration, init_time
     rec_duration = init_time + sample_duration
+    # sd.default.device = device
+    # sd.default.samplerate = samplerate
+    # sd.default.channels = 2
 
     # Start the stereo recording.
-    rec = sd.rec(int(rec_duration * samplerate), samplerate=samplerate, channels=2)
+    rec = sd.rec(int(rec_duration * samplerate), samplerate=samplerate, channels=2, device=device)
     return rec
     
 if __name__ == "__main__":

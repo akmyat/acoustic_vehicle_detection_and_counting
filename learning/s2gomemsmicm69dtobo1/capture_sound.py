@@ -30,7 +30,7 @@ dsr = int(samplerate / downsample)
 input_gain_db = 12
 
 # Input device
-device = 'snd_rpi_i2s_card'
+device = 'snd_rpi_simple_card'
 
 # Duration of each recorded sample in seconds
 sample_duration = 20

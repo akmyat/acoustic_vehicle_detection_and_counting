@@ -11,6 +11,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import accuracy_score as accuracy
 
+import time
+
 # Audio sample rate
 samplerate = 48000
 
@@ -95,6 +97,7 @@ def record_samples():
 if __name__ == "__main__":
     
     count = 0
+    start_time = time.time()
     while True:
         rec = record_samples()
         processed = process_audio_data(rec)
@@ -102,3 +105,5 @@ if __name__ == "__main__":
         count += 1
         if count == 3:
             break
+    end_time = time.time()
+    print("--- %s seconds ---" %(end_time - start_time))

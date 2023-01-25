@@ -4,6 +4,7 @@ import pickle
 
 import librosa
 from scipy import signal
+from scipy.io.wavfile import write
 import sounddevice as sd
 
 from sklearn import preprocessing
@@ -102,6 +103,7 @@ if __name__ == "__main__":
         rec = record_samples()
         processed = process_audio_data(rec)
         print(processed.shape)
+        write(f'test_{count}.wav', samplerate)
         count += 1
         if count == 3:
             break

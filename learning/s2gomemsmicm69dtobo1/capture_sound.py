@@ -103,7 +103,7 @@ if __name__ == "__main__":
         rec = record_samples()
         processed = process_audio_data(rec)
         print(processed.shape)
-        write(f'test_{count}.wav', samplerate)
+        write(f'test_{count}.wav', samplerate, processed.astype(np.float64))
         count += 1
         if count == 3:
             break

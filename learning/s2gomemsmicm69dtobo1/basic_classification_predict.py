@@ -61,7 +61,7 @@ def process_audio_data(audiodata):
     return np.array([[ch1[i], ch2[2]] for i in range(len(ch1))], dtype=np.float32)
 
 
-loaded_model = pickle.load('model.sav')
+loaded_model = pickle.load(open('model.sav', 'rb'))
 
 print("Start recording . . . ")
 rec_duration = init_time + ((sample_duration + gap_time) * samples_per_class + prepare_time)  * len(classes)

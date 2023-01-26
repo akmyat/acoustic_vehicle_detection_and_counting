@@ -103,6 +103,7 @@ if __name__ == "__main__":
     while True:
         print(f"Recording sample {count+1}...")
         rec = record_samples()
+        rec = process_audio_data(rec)
         write(f"sample_{count}.wav", samplerate, rec)
         count += 1
         if count == 3:

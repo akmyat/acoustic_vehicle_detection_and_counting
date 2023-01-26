@@ -20,7 +20,7 @@ sample_duration = 1                                       # Duration of each rec
 init_time = 5                                                      # Time the microphone should record in advance before recording a sample
 prepare_time = 8                                             # Time needed BETWEEN DIFFERENT CLASSES
 gap_time = 2                                                    # Time needed BETWEEN DIFFERENT SAMPLES
-
+input_gain_db = 12                                        # Input gain in dB. 12 dB for usual environment, 0 dB for very loud environment, 24 dB for very quiet environment
 # Device
 device = 'snd_rpi_simple_card'
 

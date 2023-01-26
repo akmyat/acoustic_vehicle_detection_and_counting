@@ -12,6 +12,22 @@ from sklearn.model_selection import train_test_split
 from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import accuracy_score as accuracy
 
+# Audio sample config
+samplerate = 48000                                         # Sample rate
+downsample = 2                                                # Down sample
+dsr = int(samplerate / downsample)          # Sample rate after downsampling
+sample_duration = 1                                       # Duration of each recorded sample in seconds   
+init_time = 5                                                      # Time the microphone should record in advance before recording a sample
+prepare_time = 8                                             # Time needed BETWEEN DIFFERENT CLASSES
+gap_time = 2                                                    # Time needed BETWEEN DIFFERENT SAMPLES
+input_gain_db = 12                                        # Input gain in dB. 12 dB for usual environment, 0 dB for very loud environment, 24 dB for very quiet environment
+# Device
+device = 'snd_rpi_simple_card'
+
+# Classifier config
+classes = ['clap', 'snap', 'other']                     # Classes
+samples_per_class = 10                                  # Number of samples per class
+
 def butter_highpass(cutoff, fs, order=5):
     """
     Helper function for the highpass filter.

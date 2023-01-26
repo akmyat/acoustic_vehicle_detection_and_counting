@@ -36,7 +36,7 @@ device = 'snd_rpi_simple_card'
 sample_duration = 20
 
 # Time the microphone should record in advance before recording first sample
-init_time = 5
+init_time = 2
 
 # Time need BETWEEN DIFFERENT SAMPLES while recording
 gap_time = 2
@@ -88,14 +88,12 @@ def process_audio_data(audiodata):
     return np.array([[ch1[i], ch2[i]] for i in range(len(ch1))], dtype=np.float32)
 
 def record_samples():
-    global sample_duration, init_time
-    rec_duration = init_time + sample_duration
-    # sd.default.device = device
-    # sd.default.samplerate = samplerate
-    # sd.default.channels = 2
+    global sample_duration, init_time, gap_time
+    rec_duration = init_time + sample_duration + gap_time
 
     # Start the stereo recording.
-    rec = sd.rec(int(rec_duration * samplerate), samplerate=samplerate, channels=2, device=1)
+    rec = sd.rec(int(rec_duration * samplerate), samplerate=samplerate, channels=2, device=device)
+    sd.wait()
     return rec
     
 if __name__ == "__main__":
@@ -103,10 +101,9 @@ if __name__ == "__main__":
     count = 0
     start_time = time.time()
     while True:
+        print(f"Recording sample {count+1}...")
         rec = record_samples()
-        processed = process_audio_data(rec)
-        print(processed.shape)
-        write(f'test_{count}.wav', samplerate, processed.astype(np.float64))
+        write(f"sample_{count}.wav", samplerate, rec)
         count += 1
         if count == 3:
             break

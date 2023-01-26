@@ -156,9 +156,9 @@ def features_to_dataframe(features):
             row = [classes.index(label)]
             column_names = ['label']
             for idx, line in enumerate(feature):
-                column_names.append('mfcc_' + str(idx))
+                column_names.append('mfcc_l-' + str(idx))
                 row.append(line)
-                column_names.append('mfcc_' + str(idx))
+                column_names.append('mfcc_r-' + str(idx))
                 row.append(line)
             Xy.append(row)
     return pd.DataFrame(Xy, columns=column_names)

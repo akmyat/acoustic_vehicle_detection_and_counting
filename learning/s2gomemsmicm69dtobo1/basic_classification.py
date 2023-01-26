@@ -74,7 +74,7 @@ def process_audio_data(audiodata):
     ch2 = set_gain_db(ch2, input_gain_db)
 
     # Output the data in same format as it came in.
-    return np.array([[ch1[i], ch[2]] for i in range(len(ch1))], dtype=np.float32)
+    return np.array([[ch1[i], ch2[2]] for i in range(len(ch1))], dtype=np.float32)
 
 def record_samples():
     global init_time, prepare_time, gap_time

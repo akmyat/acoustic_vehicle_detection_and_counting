@@ -7,7 +7,7 @@ import sounddevice as sd
 import scipy.io.wavfile as wav
 import scipy.signal
 
-import sklearn import preprocessing
+from sklearn import preprocessing
 from sklearn.model_selection import train_test_split
 from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import accuracy_score as accuracy

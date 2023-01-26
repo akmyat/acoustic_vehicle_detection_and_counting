@@ -29,9 +29,9 @@ classes = ['clap', 'snap', 'other']                     # Classes
 samples_per_class = 10                                  # Number of samples per class
 
 def butter_highpass(cutoff, fs, order=5):
-    """"
+    """
     Helper function for the highpass filter.
-    """"
+    """
 
     nyq = 0.5 * fs
     normal_cutoff = cutoff / nyq

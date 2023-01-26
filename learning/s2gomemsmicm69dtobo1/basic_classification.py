@@ -5,7 +5,7 @@ import pickle
 import librosa
 import sounddevice as sd
 import scipy.io.wavfile as wav
-import scipy.signal
+from scipy import signal
 
 from sklearn import preprocessing
 from sklearn.model_selection import train_test_split

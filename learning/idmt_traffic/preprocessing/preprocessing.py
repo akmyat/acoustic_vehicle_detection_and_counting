@@ -9,10 +9,6 @@ import torchaudio.functional as F
 import torchaudio.transforms as T
 from torch.utils.data import Dataset
 
-import librosa
-import librosa.display
-import scipy.signal
-
 from sklearn.model_selection import train_test_split
 
 import matplotlib

@@ -6,10 +6,11 @@ import pandas as pd
 import numpy as np
 
 import torch
+from torch.utils.data import Dataset
 import torchaudio
 import torchaudio.functional as F
 import torchaudio.transforms as T
-from torch.utils.data import Dataset
+from torchvision.transforms import ToPILImage, ToTensor, Normalize
 
 from sklearn.model_selection import train_test_split
 
@@ -71,11 +72,12 @@ class IDMTTrafficDataset(Dataset):
         signal = self.__mix_down_if_necessary__(signal)
         signal = self.__resample_if_necessary__(signal, sample_rate)
         mel_spec = self.mel_spec(signal)
-        mel_spec = self.__convert_to_db_scale__(mel_spec)        
+        log_mel_spec = self.__convert_to_db_scale__(mel_spec)
+        img = self.__convert_to_image__(log_mel_spec)
 
         label = self.__get_label__(idx)
         
-        return mel_spec, label
+        return img, label
 
     def __load_signal__(self, idx):
         audio_filename = self.zfname + self.X.iloc[idx]['file'] + ".wav"
@@ -93,8 +95,20 @@ class IDMTTrafficDataset(Dataset):
         return signal
 
     def __convert_to_db_scale__(self, mel_spec):
-        mel_spec = F.amplitude_to_DB(mel_spec, 10, 1e-10, np.log10(max(mel_spec.max(), 1e-10)))
-        return mel_spec        
+        log_mel_spec = F.amplitude_to_DB(mel_spec, 10, 1e-10, np.log10(max(mel_spec.max(), 1e-10)))
+        return log_mel_spec
+
+    def __convert_to_image__(self, log_mel_spec):
+        eps  = 1e-6
+        mean = log_mel_spec.mean()
+        std = log_mel_spec.std()
+        log_mel_spec_norm = (log_mel_spec - mean) / (std + eps)
+        spec_min, spec_max = log_mel_spec_norm.min(), log_mel_spec_norm.max()
+        img = 255 * (log_mel_spec_norm - spec_min) / (spec_max - spec_min)
+        img = ToPILImage()(img).convert('RGB')
+        img_tensor = ToTensor()(img)
+        normalize_img = Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])(img_tensor)
+        return normalize_img
 
     def __get_label__(self, idx):
         label = self.class_to_idx[self.y.iloc[idx]] 

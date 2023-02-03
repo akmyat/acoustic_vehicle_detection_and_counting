@@ -71,6 +71,7 @@ class IDMTTrafficDataset(Dataset):
         signal = self.__mix_down_if_necessary__(signal)
         signal = self.__resample_if_necessary__(signal, sample_rate)
         mel_spec = self.mel_spec(signal)
+        mel_spec = self.__convert_to_db_scale__(mel_spec)        
 
         label = self.__get_label__(idx)
         
@@ -90,6 +91,10 @@ class IDMTTrafficDataset(Dataset):
         if sample_rate != self.target_sample_rate:
             signal = T.Resample(sample_rate, self.target_sample_rate)(signal)
         return signal
+
+    def __convert_to_db_scale__(self, mel_spec):
+        mel_spec = F.amplitude_to_DB(mel_spec, 10, 1e-10, np.log10(max(mel_spec.max(), 1e-10)))
+        return mel_spec        
 
     def __get_label__(self, idx):
         label = self.class_to_idx[self.y.iloc[idx]] 

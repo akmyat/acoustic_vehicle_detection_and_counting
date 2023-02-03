@@ -1,5 +1,7 @@
 import os
+import io
 import glob
+import zipfile
 import pandas as pd
 import numpy as np
 
@@ -18,10 +20,11 @@ from IPython.display import Audio, display
 
 
 class IDMTTrafficDataset(Dataset):
-    def __init__(self, X, y, folder_path, n_mels=None, target_sample_rate=22050):
+    def __init__(self, X, y, zip_path, n_mels=None, target_sample_rate=22050):
         self.X = X
         self.y = y
-        self.path = folder_path
+        self.zfname = os.path.basename(zip_path).replace(".zip", "") + "/audio/"
+        self.archive = zipfile.ZipFile(zip_path)
         self.target_sample_rate = target_sample_rate
 
         self.classes = y.unique()
@@ -74,8 +77,8 @@ class IDMTTrafficDataset(Dataset):
         return mel_spec, label
 
     def __load_signal__(self, idx):
-        audio_filename = self.path + self.X.iloc[idx]['file'] + ".wav"
-        signal, sample_rate = torchaudio.load(audio_filename)
+        audio_filename = self.zfname + self.X.iloc[idx]['file'] + ".wav"
+        signal, sample_rate = torchaudio.load(io.BytesIO(self.archive.read(audio_filename)))
         return signal, sample_rate
     
     def __mix_down_if_necessary__(self, signal):
@@ -94,8 +97,10 @@ class IDMTTrafficDataset(Dataset):
 
 
 class Preprocess:
-    def __init__(self, path):
-        annotation_path = path + "annotation/"
+    def __init__(self, zip_path):
+        self.archive = zipfile.ZipFile(zip_path)
+        annotation_path = os.path.basename(zip_path).replace(".zip", "") + "/annotation/"
+
         df_list = []
 
         fn_txt_list = [
@@ -156,7 +161,7 @@ class Preprocess:
                     'channel': Original stereo pair channel (12) or (34)
         """
         # load file list
-        df_files = pd.read_csv(fn_txt, names=('file',))
+        df_files = pd.read_csv(io.BytesIO(self.archive.read(fn_txt)), names=('file',))
         fn_file_list = df_files['file'].to_list()
 
         # load metadata from file names

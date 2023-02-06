@@ -159,6 +159,21 @@ class Preprocess:
 
         return X_train, X_val, X_test, y_train, y_val, y_test
 
+    def train_test_split(self):
+        X_train = self.train_df.drop(columns=['date_time', 'location', 'sample_pos', 'microphone', 'channel', 'vehicle'])
+        y_train = self.train_df['vehicle']
+        X_train.reset_index(drop=True, inplace=True)
+        y_train.reset_index(drop=True, inplace=True)
+        print(f"X_trian: {X_train.shape}\ty_train: {y_train.shape}")
+
+        X_test = self.test_df.drop(columns=['date_time', 'location', 'sample_pos', 'microphone', 'channel', 'vehicle'])
+        y_test = self.test_df['vehicle']
+        X_test.reset_index(drop=True, inplace=True)
+        y_test.reset_index(drop=True, inplace=True)
+        print(f"X_test: {X_test.shape}\ty_test: {y_test.shape}")
+
+        return X_train, X_test, y_train, y_test
+        
     def import_idmt_traffic_dataset(self, fn_txt: str = "idmt_traffic_all") -> pd.DataFrame:
         """ Import IDMT-Traffic dataset
         Args:

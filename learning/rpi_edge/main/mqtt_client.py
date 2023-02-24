@@ -13,7 +13,7 @@ class MQTTClient:
         elif tls_version == "tlsv1.1":
             self.tls_version = ssl.PROTOCOL_TLSv1_1
         elif tls_version == "tlsv1.2":
-            self.tls_version = ssl.PROTOCOL_TLSv1_1
+            self.tls_version = ssl.PROTOCOL_TLSv1_2
         else:
             print("Unknown TLS version - ignoring")
             self.tls_version = None

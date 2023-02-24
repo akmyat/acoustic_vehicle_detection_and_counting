@@ -72,7 +72,7 @@ avrecorder.start_video_stream()
 mqtt_client.start_loop()
 
 start_time = time.time()
-
+print("Start Recording...")
 try:
     while True:
         if time.time() - start_time > 20:
@@ -80,10 +80,12 @@ try:
             avrecorder.update_timestamp()
             avrecorder.prepare_new_audio_file()
             avrecorder.prepare_new_video_file()
+            print("Write Audio and Video files")
 
             value_dict = read_sensor_values()
             for key in value_dict.keys():
                 mqtt_client.publish(topic_dict[key], value_dict[key], qos=1)
+            print("Send data via MQTT")
 
             start_time = time.time()
         else:
@@ -94,3 +96,4 @@ except KeyboardInterrupt:
     avrecorder.stop_audio_stream()
     avrecorder.stop_video_stream()
     mqtt_client.stop_loop()
+    print("Stop Recording...")

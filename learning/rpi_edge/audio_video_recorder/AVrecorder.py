@@ -5,7 +5,7 @@ import time
 from datetime import datetime
 
 class AVrecorder:
-    def __init__(self, sample_rate, channels, fpb, duration, audio_input_device, fps, img_height, img_width, encoding, video_input_device):
+    def __init__(self, sample_rate, channels, fpb, duration, audio_input_device, fps, img_width, img_height, encoding, video_input_device):
         self.sample_rate = sample_rate
         self.channels = channels
         self.fpb = fpb

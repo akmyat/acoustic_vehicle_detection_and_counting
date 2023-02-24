@@ -9,7 +9,7 @@ class MIC6814:
         data = gas.read_all()
 
     def get_oxidising(self):
-        return gas.read_oxidising
+        return gas.read_oxidising()
     
     def get_reducing(self):
         return gas.read_reducing()

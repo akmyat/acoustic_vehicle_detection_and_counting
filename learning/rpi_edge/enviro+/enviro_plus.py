@@ -6,7 +6,7 @@ from smbus import SMBus
 from ltr559 import LTR559
 from gas_advance_tutorial import MIC6814
 
-class enviroSensor:
+class EnviroPlus:
     def __init__():
         self.bus = SMBus(1)
         self.bme280 = BME280(i2c_dev=bus)

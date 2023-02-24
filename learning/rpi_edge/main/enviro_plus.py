@@ -9,7 +9,7 @@ from gas_sensor import MIC6814
 class EnviroPlus:
     def __init__(self):
         self.bus = SMBus(1)
-        self.bme280 = BME280(i2c_dev=bus)
+        self.bme280 = BME280(i2c_dev=self.bus)
         self.ltr559 = LTR559()
         self.gas_sensor = MIC6814()
     

@@ -14,7 +14,12 @@ ca_crt_path = "./certs/ca.crt"
 client_crt_path = "./certs/client.crt"
 client_key_path = "./certs/client.key"
 
+host = "aungkaungmyat.engineer"
+port = 1883
+keepalive = 60
+
 mqtt_client = MQTTClient(tls_version, ca_crt_path, client_crt_path, client_key_path)
+mqtt_client.connect(host, port, keepalive)
 
 # For Enviro+
 enviro_sensor = EnviroPlus()

@@ -1,0 +1,27 @@
+# Ignore .zip files
+*.zip
+
+# Ignore .gz files
+*.gz
+
+# Ignore .pth files
+*.pth
+
+# Ignore .wav files
+*.wav
+
+# Ignore IDE files
+.vscode
+
+# Ignore Pickle files
+*.pickle
+
+# Ignore .h5 files
+*.h5
+
+# Ignore following folders
+/learning/vehicle_counting/datasets
+/learning/vehicle_counting/VC-PRG-1_5
+/learning/vehicle_counting/VC-PRG-6
+/learning/vehicle_counting/dataset
+/learning/vision_based/yolov8/ByteTrack

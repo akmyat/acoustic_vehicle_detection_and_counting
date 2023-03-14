@@ -5,6 +5,8 @@ from mqtt_client import MQTTClient              # For MQTT
 from enviro_plus import EnviroPlus                 # For Enviro+ board
 from AVrecorder import AVrecorder               # For Audio and Video recorder
 
+debug = True
+
 deviceID = "VCD0001-0000000018e10413"
 prefix = "dt"
 
@@ -64,7 +66,7 @@ duration = 20
 audio_input_device = 1
 
 # For Video
-fps = 30
+fps = 6
 width = 640
 height = 480
 fourcc = "MJPG"
@@ -76,11 +78,17 @@ avrecorder.start_audio_stream()
 avrecorder.start_video_stream()
 mqtt_client.start_loop()
 
+if debug:
+    frame_num = 0
+
 start_time = time.time()
 print("Start Recording...")
 try:
     while True:
         if time.time() - start_time > 20:
+            if debug:
+                print(frame_num)
+                frame_num = 0
 
             avrecorder.update_timestamp()
             avrecorder.prepare_new_audio_file()
@@ -96,6 +104,8 @@ try:
         else:
             avrecorder.read_audio_frame()
             avrecorder.read_video_frame()
+            if debug:
+                frame_num += 1
 
 except KeyboardInterrupt:
     avrecorder.stop_audio_stream()

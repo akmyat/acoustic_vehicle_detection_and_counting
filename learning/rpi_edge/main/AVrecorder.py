@@ -37,7 +37,7 @@ class AVrecorder:
         self.audio_file = wavefile
 
     def prepare_new_video_file(self):
-        self.video_file_name = self.output_path + "video_" + self.time_stamp + ".avi"
+        self.video_file_name = self.output_path + "video_" + self.time_stamp + ".mp4"
 
         video_writer = cv2.VideoWriter(self.video_file_name, self.encoding, self.fps, self.frame_size)
         self.video_file = video_writer

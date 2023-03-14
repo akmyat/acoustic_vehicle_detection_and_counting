@@ -71,7 +71,7 @@ audio_input_device = 1
 fps = 6
 width = 640
 height = 480
-fourcc = "MJPG"
+fourcc = "mp4v"
 video_input_device = 0
 
 avrecorder = AVrecorder(sample_rate, channels, frames_per_buffer, duration, audio_input_device, fps, width, height, fourcc, video_input_device, output_path)

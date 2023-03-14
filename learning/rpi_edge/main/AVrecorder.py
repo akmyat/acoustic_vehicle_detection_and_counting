@@ -5,7 +5,7 @@ import time
 from datetime import datetime
 
 class AVrecorder:
-    def __init__(self, sample_rate, channels, fpb, duration, audio_input_device, fps, img_width, img_height, encoding, video_input_device):
+    def __init__(self, sample_rate, channels, fpb, duration, audio_input_device, fps, img_width, img_height, encoding, video_input_device, output_path):
         self.sample_rate = sample_rate
         self.channels = channels
         self.fpb = fpb
@@ -25,9 +25,10 @@ class AVrecorder:
         
         self.audio_file = None
         self.video_file = None
+        self.output_path = output_path
 
     def prepare_new_audio_file(self):
-        self.audio_file_name = "audio_" + self.time_stamp + ".wav"
+        self.audio_file_name = self.output_path + "audio_" + self.time_stamp + ".wav"
 
         wavefile = wave.open(self.audio_file_name, "wb")
         wavefile.setnchannels(self.channels)
@@ -36,7 +37,7 @@ class AVrecorder:
         self.audio_file = wavefile
 
     def prepare_new_video_file(self):
-        self.video_file_name = "video_" + self.time_stamp + ".avi"
+        self.video_file_name = self.output_path + "video_" + self.time_stamp + ".avi"
 
         video_writer = cv2.VideoWriter(self.video_file_name, self.encoding, self.fps, self.frame_size)
         self.video_file = video_writer

@@ -58,6 +58,8 @@ def read_sensor_values():
 
     return value_dict
 
+output_path = "~/outputs/"
+
 # For Audio
 sample_rate = 48000
 channels = 2
@@ -72,7 +74,7 @@ height = 480
 fourcc = "MJPG"
 video_input_device = 0
 
-avrecorder = AVrecorder(sample_rate, channels, frames_per_buffer, duration, audio_input_device, fps, width, height, fourcc, video_input_device)
+avrecorder = AVrecorder(sample_rate, channels, frames_per_buffer, duration, audio_input_device, fps, width, height, fourcc, video_input_device, output_path)
 
 avrecorder.start_audio_stream()
 avrecorder.start_video_stream()
